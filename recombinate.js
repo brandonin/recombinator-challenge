@@ -6,40 +6,49 @@ const throwError = (error) => {
     process.exit(1);
 }
 
+// Guard Clause
 const isCorrectInput = (input) => {
+    if (process.argv.length !== 3) throwError("Illegal number of parameters. Should only contain one.");
     if (!Array.isArray(jsonInput)) throwError("Input parameter is not valid. Please use the suggested format.");
     isOfOneType(input);
 }
 
-const isArray = (input) => {
-    // Do something
+const enumArray = (matrix) => {
+    // Do Something
 }
 
-const isJson = (input) => {
-    // Do something
-}
+const enumObject = (matrix) => {
+    let output = {};
+    matrix.forEach((value, index, array) => {
+        Object.keys(value).forEach((key) => {
+            if (!output[key]) output[key] = Array.apply(null, Array(array.length)).map(() => null);
+        })
 
-// Verify that only one paramater exists.
-if (process.argv.length !== 3) throwError("Illegal number of parameters. Should only contain one.");
+        Object.keys(value).forEach((key) => {
+            output[key][index] = (value[key]);
+        })
+    });
+    return output;
+}
 
 const jsonInput = JSON.parse(process.argv[2]);
-if (!Array.isArray(jsonInput)) throwError("Input parameter is not valid. Please use the suggested format.")
 
+// Verify that the parameter is the correct format.
 isCorrectInput(jsonInput);
 
-// This will be our array function
-let output = jsonInput.map((x, index, array) => {
-    return x;
-});
+if (isTypeArray(jsonInput[0])) console.log(JSON.stringify(enumArray(jsonInput)));
+if (isTypeObject(jsonInput[0])) console.log(JSON.stringify(enumObject(jsonInput)));
+
+
 
 // =============== Helper Function ===============
-function isOfOneType(input) {
+function isOfOneType(matrix) {
     var isArray = false,
         isObject = false;
 
-    input.forEach((x) => {
-        if (isObjectOrArray(x) === '[object Array]') isArray = true;
-        else if (isObjectOrArray(x) === '[object Object]') isObject = true;
+    matrix.forEach((input) => {
+        if (isTypeArray(input)) isArray = true;
+        else if (isTypeObject(input)) isObject = true;
         else throwError("Input parameter is not valid. There should only be Arrays or Objects in the matrix.");
 
         if (isArray && isObject) throwError("Input parameter is not valid. There is a mixture of Arrays and Objects.");
@@ -48,4 +57,12 @@ function isOfOneType(input) {
 
 function isObjectOrArray(obj) {
   return Object.prototype.toString.call(obj);
+}
+
+function isTypeArray(input) {
+    return isObjectOrArray(input) === '[object Array]';
+}
+
+function isTypeObject(input) {
+    return isObjectOrArray(input) === '[object Object]';
 }
