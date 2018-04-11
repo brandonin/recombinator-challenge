@@ -1,15 +1,9 @@
-// This script will transform and output a two demensional array into a valid JSON object.
-
-// We are going to use node in order to determine that the parameter given is valid.
-const throwError = (error) => {
-    console.log(error);
-    process.exit(1);
-}
+// module "helper.js"
 
 // Guard Clauses
-const isCorrectInput = (input) => {
-    if (process.argv.length !== 3) throwError("Illegal number of parameters. Should only contain one.");
-    if (!Array.isArray(jsonInput)) throwError("Input parameter is not valid. Please use the suggested format.");
+const inputIsCorrectFormat = (input) => {
+    if (input.length === 0) throwError("Input parameter is not valid. Array is Empty.");
+    if (!Array.isArray(input)) throwError("Input parameter is not valid. Please use the suggested format.");
     isOfOneType(input);
 }
 
@@ -47,15 +41,15 @@ const enumObject = (matrix) => {
     return output;
 }
 
-const jsonInput = JSON.parse(process.argv[2]);
+const isTypeArray = (input) => {
+    return isObjectOrArray(input) === '[object Array]';
+}
 
-// Verify that the parameter is the correct format.
-isCorrectInput(jsonInput);
+const isTypeObject = (input) => {
+    return isObjectOrArray(input) === '[object Object]';
+}
 
-if (isTypeArray(jsonInput[0])) console.log(JSON.stringify(enumArray(jsonInput)));
-if (isTypeObject(jsonInput[0])) console.log(JSON.stringify(enumObject(jsonInput)));
-
-
+module.exports = {inputIsCorrectFormat, enumArray, enumObject, isTypeArray, isTypeObject};
 
 // =============== Helper Function ===============
 function isOfOneType(matrix) {
@@ -75,10 +69,7 @@ function isObjectOrArray(obj) {
   return Object.prototype.toString.call(obj);
 }
 
-function isTypeArray(input) {
-    return isObjectOrArray(input) === '[object Array]';
-}
-
-function isTypeObject(input) {
-    return isObjectOrArray(input) === '[object Object]';
+function throwError(error) {
+    console.log(error);
+    process.exit(1);
 }

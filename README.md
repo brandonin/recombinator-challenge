@@ -7,7 +7,7 @@ Please write a small [CLI tool](https://en.wikipedia.org/wiki/Command-line_inter
 Your program should expect valid JSON representing a two dimensional matrix. It will be in one of the following two formats:
 
 **A**) **a list of lists**
-    
+
   The expected format is `[ [variable names], [first row], [second row], ... ]`
 
     recombinator '[ ["a","b","c"], [1,2,null], [null,3,4], [5,null,6] ]'
@@ -20,7 +20,7 @@ Your program should expect valid JSON representing a two dimensional matrix. It 
   Accordingly, this form of input is convenient for sparse data sets.
 
     recombinator '[ { "a":1, "b":2 }, { "b":3, "c":4 }, { "c":6, "a":5 } ]'
-    
+
 ## Output
 Your program should transform the input into a single JSON object mapping variable names to lists of values.
 

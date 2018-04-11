@@ -1,0 +1,25 @@
+{
+  "name": "recombinator-challenge",
+  "version": "1.0.0",
+  "description": "CLI for Spring Labs Recombinator",
+  "main": "index.js",
+  "bin": {
+    "recombinator": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brandonin/recombinator-challenge.git"
+  },
+  "author": "brandon in",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brandonin/recombinator-challenge/issues"
+  },
+  "homepage": "https://github.com/brandonin/recombinator-challenge#readme",
+  "dependencies": {
+    "commander": "^2.15.1"
+  }
+}
