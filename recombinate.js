@@ -6,21 +6,37 @@ const throwError = (error) => {
     process.exit(1);
 }
 
-// Guard Clause
+// Guard Clauses
 const isCorrectInput = (input) => {
     if (process.argv.length !== 3) throwError("Illegal number of parameters. Should only contain one.");
     if (!Array.isArray(jsonInput)) throwError("Input parameter is not valid. Please use the suggested format.");
     isOfOneType(input);
 }
 
+// I kept these two functions seperate so it would be easier to debug.
 const enumArray = (matrix) => {
-    // Do Something
+    let output = {};
+    // Created a map in order to have a reference of the key in output.
+    let map = {};
+
+    matrix.forEach((value, index, array) => {
+        value.forEach((value, idx) => {
+            if (index === 0) {
+                output[value] = [];
+                map[idx] = value;
+            } else {
+                output[map[idx]].push(value);
+            }
+        })
+    });
+    return output;
 }
 
 const enumObject = (matrix) => {
     let output = {};
     matrix.forEach((value, index, array) => {
         Object.keys(value).forEach((key) => {
+            // Creates an array with an initial length with null as values.
             if (!output[key]) output[key] = Array.apply(null, Array(array.length)).map(() => null);
         })
 
