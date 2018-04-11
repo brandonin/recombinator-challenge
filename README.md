@@ -1,3 +1,6 @@
+## Instructions
+Once cloned, type `npm link` in order to link it to the command line.
+After, you can use type `recombinator '[ ["a","b","c"], [1,2,null], [null,3,4], [5,null,6] ]'` in the CLI.
 
 ## Context
 
